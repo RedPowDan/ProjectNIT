@@ -7,6 +7,6 @@ class DBMessage(BaseModel):
 
     __tablename__ = 'messages'
 
-    sender_id = Column(Integer, nullable=False)
-    recipient_id = Column(Integer, nullable=False)
+    sender_id = Column(Integer, ForeignKey('employees.id'), nullable=False)
+    recipient_id = Column(Integer, ForeignKey('employees.id'), nullable=False)
     message = Column(VARCHAR(5000), nullable=False)
