@@ -47,13 +47,22 @@ class ResponseDto:
 
     @staticmethod
     def parse_obj(obj: object) -> dict:
-        return {
-            prop: value
-            for prop in dir(obj)
-            if not prop.startswith('_')
-               and not prop.endswith('_')
-               and not callable(value := getattr(obj, prop))
-        }
+
+        properties = {}
+        for prop in dir(obj):
+            if not prop.startswith('_') and not prop.endswith('_'):
+                attr = getattr(obj, prop)
+                if not callable(attr):
+                    properties[prop] = attr
+        return properties
+
+        # return {
+        #     prop: value
+        #     for prop in dir(obj)
+        #     if not prop.startswith('_')
+        #        and not prop.endswith('_')
+        #        and not callable(value := getattr(obj, prop))
+        # }
 
     def dump(self) -> dict:
         return self._data

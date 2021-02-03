@@ -59,8 +59,6 @@ def patch_message(session: DBSession, message, message_id: int) -> DBMessage:
             value = getattr(message, attr)
             setattr(db_message, attr, value)
 
-    db_message.update_at = datetime.datetime.utcnow()
-
     return db_message
 
 

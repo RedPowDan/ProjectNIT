@@ -8,12 +8,12 @@ from db.exceptions import DBEmployeeNotExistsException, DBDataException, DBInteg
 from db.queries import employee as employee_queries
 from transport.sanic.endpoints import BaseEndpoint
 from transport.sanic.exceptions import SanicEmployeeNotFound, SanicDBException
-from helpers import Decorator
+from helpers.Decorator import only_self
 
 
 class EmployeeEndpoint(BaseEndpoint):
 
-    @Decorator.only_self(status_error=403)
+    @only_self(status_error=403)
     async def method_patch(
             self, request: Request, body: dict, session: DBSession, eid: int, token: dict, *args, **kwargs
     ) -> BaseHTTPResponse:
@@ -50,7 +50,7 @@ class EmployeeEndpoint(BaseEndpoint):
 
         return await self.make_response_json(status=204)
 
-    @Decorator.only_self(status_error=403)
+    @only_self(status_error=403)
     async def method_get(
             self, request: Request, body: dict, session: DBSession, eid: int, token: dict, *args, **kwargs
     ) -> BaseHTTPResponse:
